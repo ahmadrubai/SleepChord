@@ -1,0 +1,7 @@
+# SleepChord privacy notes
+
+On Windows, SleepChord stores settings, listening history, caches, queue state, and logs under `%APPDATA%\ytm-rs\data`. Windows Credential Manager stores current sign-in secrets and protected settings such as configured add-on links. Older session copies can remain until secure migration succeeds. The yt-dlp fallback can use a temporary, access-restricted YouTube session cookie file. Uninstall preserves the profile and credential entries.
+
+Music services receive requests needed for search, playback, authentication, and library management. Spotify transfer reads eligible playlist and track metadata and sends matched entries to YouTube Music when selected. Artwork and lyrics integrations can receive track or artist metadata. Enabled translation can send lyric text. Optional Last.fm scrobbling, Discord Rich Presence, SponsorBlock, high-resolution add-ons, and Listen Together have their own data flows. A party relay can receive a display name, pseudonymous device identifiers, avatar URL when available, and shared playback information. Custom party joins require confirmation.
+
+Providers apply their own terms and privacy policies. Logs can contain track details or local paths. Before sharing logs or screen captures, remove account information, credentials, tokens, signed URLs, and personal listening data. The security review and release gates are documented in the [release preparation guide](github-release-preparation.md).

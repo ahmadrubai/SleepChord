@@ -1,0 +1,40 @@
+name	version	declared_license	supplement	upstream_commit	upstream
+accesskit	0.25.2	MIT OR Apache-2.0	Apache-2.0.txt	f3026222559c7f5f46d8f25cb7404de68eb149f0	https://github.com/AccessKit/accesskit
+accesskit_consumer	0.39.2	MIT OR Apache-2.0	Apache-2.0.txt	f3026222559c7f5f46d8f25cb7404de68eb149f0	https://github.com/AccessKit/accesskit
+accesskit_windows	0.35.2	MIT OR Apache-2.0	Apache-2.0.txt	f3026222559c7f5f46d8f25cb7404de68eb149f0	https://github.com/AccessKit/accesskit
+accesskit_winit	0.34.2	Apache-2.0	Apache-2.0.txt	f3026222559c7f5f46d8f25cb7404de68eb149f0	https://github.com/AccessKit/accesskit
+clipboard-win	5.4.1	BSL-1.0	BSL-1.0.txt	3b27cf2bfd1adcfa6e0264eb51c1025ddaf0f342	https://github.com/DoumanAsh/clipboard-win
+dasp_sample	0.11.0	MIT OR Apache-2.0	Apache-2.0.txt	97c3bb9b2363c0b46ac1633858bf1054fd02a980	https://github.com/rustaudio/sample.git
+defmt-parser	1.0.0	MIT OR Apache-2.0	Apache-2.0.txt	4a8cdb44891ed57b8ff5a023b6bec7137c48708f	https://github.com/knurling-rs/defmt
+ecolor	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	7c0b40402271e8d40cda69f87cf3c2617c2e4382	https://github.com/emilk/egui
+eframe	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	3c6eb8261c3293ad9c7ea1ed58487e038860ebef	https://github.com/emilk/egui/tree/main/crates/eframe
+egui	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	7c0b40402271e8d40cda69f87cf3c2617c2e4382	https://github.com/emilk/egui
+egui_extras	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	9d317be94fc96df23bd5d9316f357efa2d3631d8	https://github.com/emilk/egui
+egui_glow	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	7c0b40402271e8d40cda69f87cf3c2617c2e4382	https://github.com/emilk/egui/tree/main/crates/egui_glow
+egui-wgpu	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	7c0b40402271e8d40cda69f87cf3c2617c2e4382	https://github.com/emilk/egui/tree/main/crates/egui-wgpu
+egui-winit	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	7c0b40402271e8d40cda69f87cf3c2617c2e4382	https://github.com/emilk/egui/tree/main/crates/egui-winit
+emath	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	7c0b40402271e8d40cda69f87cf3c2617c2e4382	https://github.com/emilk/egui/tree/main/crates/emath
+enum-map	3.1.0	MIT OR Apache-2.0	Apache-2.0.txt	a09d924a4afde4e2864a1df7b1438a5e6cdf3e7e	https://codeberg.org/sugar700/enum-map
+enum-map-derive	1.0.1	MIT OR Apache-2.0	Apache-2.0.txt	ccf562d340723530d54f7bdfeb1782b4ded803a7	https://codeberg.org/sugar700/enum-map
+epaint	0.37.0	MIT OR Apache-2.0	Apache-2.0.txt	7c0b40402271e8d40cda69f87cf3c2617c2e4382	https://github.com/emilk/egui/tree/main/crates/epaint
+filmcraft-ac3	0.9.0	MIT OR Apache-2.0	Apache-2.0.txt	686c07a3f21254c9f1d1e75f03cdebed0dfb85ed	https://crates.io/crates/filmcraft-ac3/0.9.0
+gl_generator	0.14.0	Apache-2.0	Apache-2.0.txt	ea503e8d5fb6d73c6030e6191ce738cd3bf3433e	https://github.com/brendanzab/gl-rs/
+khronos_api	3.1.0	Apache-2.0	Apache-2.0.txt	f150967b1c44ae888e6676f93f639ebc82771bdc	https://github.com/brendanzab/gl-rs/
+profiling	1.0.18	MIT OR Apache-2.0	Apache-2.0.txt	8271551172eb6fa4cba47369aedd93790c623df9	https://github.com/aclysma/profiling
+rquickjs-core	0.14.0	MIT	rquickjs-MIT.txt	d7ef5eeae702fea24c03643064de454f1c1dd4b0	https://github.com/DelSkayn/rquickjs.git
+spirv	0.4.0+sdk-1.4.341.0	Apache-2.0	Apache-2.0.txt	8afc3d0ac8e158128cd1410bb2e4b4c26ab11bb4	https://github.com/gfx-rs/rspirv
+symphonia	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-bundle-flac	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-bundle-mp3	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-codec-aac	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-codec-alac	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-codec-vorbis	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-core	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-format-isomp4	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-format-mkv	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-format-riff	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-metadata	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+symphonia-utils-xiph	0.5.5	MPL-2.0	MPL-2.0.txt	6d533f26150953a882a6a111ebd13f0abf7129d5	https://github.com/pdeljanov/Symphonia
+webview2-com	0.39.1	MIT	webview2-rs-MIT.txt	edc2caf886175ccaebe86078c9cfe1ae2a187328	https://github.com/wravery/webview2-rs
+webview2-com-macros	0.8.1	MIT	webview2-rs-MIT.txt	dffa41a8a46d3f5565eefbff2de57d38d399f158	https://github.com/wravery/webview2-rs
+webview2-com-sys	0.39.1	MIT	webview2-rs-MIT.txt	edc2caf886175ccaebe86078c9cfe1ae2a187328	https://github.com/wravery/webview2-rs

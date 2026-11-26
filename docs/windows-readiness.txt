@@ -1,0 +1,171 @@
+SleepChord 2.0.1 Windows release readiness
+========================================
+
+Status: local review only. Do not publish the binary or source candidate
+until the source, rights and compatibility issues below are resolved.
+
+Windows source candidate
+------------------------
+scripts/package-source.py exports the Windows app source, lockfile, build
+and installer scripts, build assets and notices. It also includes original
+registry source archives for the locked Windows Cargo graph. Each embedded
+crate archive is checked against Cargo.lock. SOURCE-MANIFEST.json records
+the app and installer hashes, original source-file hashes and the Rust toolchain.
+
+The candidate deliberately blanks the inherited Last.fm API key and signing
+secret and the Spotify web-player fallback key material. The original
+working tree and locally rebuilt binaries retain their existing provider
+behavior. The candidate builds from redacted source and cannot reproduce those
+binaries exactly. It does not satisfy the corresponding-source requirement
+for publishing them. An approved provider credential redesign and a fresh
+build are required to supply complete corresponding source without embedding
+or redistributing credential material. Do not restore inherited credentials
+to a public archive. Discord's application ID is a public identifier, but
+the associated provider registration still needs approval.
+
+To build the Windows x64 source on a build machine, install the Rust MSVC x64
+toolchain recorded in SOURCE-MANIFEST.json, Visual Studio C++ Build Tools with
+the Windows SDK and authorized VC redistributable files, and Inno Setup 7.1.1.
+From the extracted source root, run the following in PowerShell:
+
+  cargo fmt --check
+  cargo check --locked
+  cargo test --locked
+  .\scripts\build-release.ps1
+  .\scripts\build-installer.ps1 -CompilerPath 'C:\path\to\ISCC.exe'
+
+If PowerShell has no configured execution policy, run the trusted local
+scripts in a process using RemoteSigned. Respect organization policies.
+Cargo uses Cargo.lock to resolve crates. The dependency-sources directory is
+a Windows source mirror for review. The normal build can need access to
+crates.io for resolution and for sources of other target platforms that Cargo
+decides to fetch. This procedure records inputs and output checksums. It
+does not promise bitwise reproducibility across build machines.
+
+The Windows candidate omits user profiles, local history, private settings,
+Git metadata, installed executables, and developer caches. It also omits
+unused SF Pro font files, the separately deployed relay and website, and
+promotional screenshots. The separately maintained upstream EJS project
+provides editable inputs for the bundled version 0.8.0 solver files.
+Review the corresponding-source scope, including any upstream generated
+assets and their preferred form, before publishing.
+
+Notice and asset review
+-----------------------
+The 39 records in docs/licenses/windows-notices.tsv identify exact crate
+versions, SPDX declarations and source revisions. For dual MIT/Apache
+declarations, the supplement supplies the Apache-2.0 option. The Apache
+text was copied from the packaged defmt license. Retain applicable source
+copyright headers and upstream NOTICE documents under Apache-2.0 section 4.
+For Symphonia, the shared MPL-2.0 text is copied from the packaged option-ext
+license and the license was verified in Symphonia's pinned repository.
+The clipboard-win Boost license was verified against its pinned repository;
+the common Boost 1.0 text is from its error-code dependency. The rquickjs-core
+license comes from rquickjs 0.14.0 at the exact same repository commit.
+The WebView2 Rust binding supplement uses the standard MIT text and Bill
+Avery's copyright from the upstream license. The Microsoft loader has its
+own terms independent of the Rust binding.
+
+The supplements fill the previously missing standalone license-text
+entries. Direct raw upstream downloads are blocked in this environment.
+Some pinned license or NOTICE files could not be independently retrieved,
+including filmcraft-ac3's upstream source tree, older egui revisions and
+Codeberg enum-map. Check the full upstream notice sets and preserve additional
+attributions as required. The Windows dependency-source archives preserve
+their original headers. This audit does not clear permission for all assets.
+
+Keep applicable font license notices when distributing Inter, DM Sans,
+Figtree, Google Sans Flex, Instrument Sans, Lucide and egui fallback fonts.
+Establish provenance and rights for inherited icon variants, copied glyphs,
+theme thumbnails and preview imagery. SF Pro is excluded from the Windows
+candidate and binary. Verify the right to distribute the Visual Studio
+REDIST DLLs and the Microsoft WebView2 SDK loader; the Evergreen Runtime is
+installed separately. Review the Inno Setup commercial terms if applicable.
+
+GPLv3 section 6 requires providing corresponding source when conveying the
+binary. For a public download, make the exact source available with equivalent
+access and give clear directions next to the binary. MPL-2.0 section 3.2
+requires continued access to the covered source and retention of notices.
+Neither license grants access to music services or rights in their content.
+
+Provider review
+---------------
+* YouTube Music: internal InnerTube clients, web sessions, direct playback
+  and downloads use endpoints and client identifiers inherited from upstream.
+  Obtain permission for these flows or use a provider-supported integration.
+  Review account/session handling and content rights with YouTube.
+  https://www.youtube.com/t/terms
+  https://developers.google.com/youtube/terms/developer-policies
+* Restricted playback: the app can hand YouTube session cookies to yt-dlp
+  via a temporary file, and uses embedded EJS for some native playback.
+  Obtain rights for this access path and review helper and cookie handling.
+  The Windows helper is downloaded at runtime. Its upstream standalone
+  package has GPL components if a future release decides to bundle it.
+  https://github.com/yt-dlp/yt-dlp#license
+* Spotify: public playlist lookup uses web-player session endpoints and
+  partner APIs. Account import also calls the Spotify Web API. Clearance
+  is needed for the private calls, fallback key material, data transfer
+  and metadata usage. Move to authorized credentials and endpoints before
+  public release if permission for the current flow cannot be obtained.
+  https://developer.spotify.com/terms
+  https://developer.spotify.com/policy
+* Apple Music: catalog artwork and motion artwork use a bearer taken
+  from the public web player. Verify authorization for this token use and
+  for retrieving, caching, displaying and distributing artwork. Prefer
+  an authorized catalog integration for a public release.
+  https://www.apple.com/legal/internet-services/itunes/
+* MusicBrainz: no direct MusicBrainz endpoint or Cover Art Archive client
+  was found in the Windows application source. If an upstream service
+  supplies that data, confirm its provenance and applicable licenses.
+  https://musicbrainz.org/doc/About/Data_License
+  https://musicbrainz.org/doc/MusicBrainz_API/Rate_Limiting
+* Lyrics: Better Lyrics, Unison and lrc.red receive track metadata. Check
+  service permissions and lyrics display, translation, attribution and
+  caching rights. A lyric client's software license does not license lyrics.
+  https://github.com/better-lyrics/better-lyrics
+  https://github.com/better-lyrics/unison
+* High-resolution audio: user-configured add-ons deliver their own streams.
+  The client retries some refusals with the inherited release identifier.
+  Verify operator permission and rights for the delivered catalog. Use an
+  authorized SleepChord identity and review the refusal behavior before
+  public release. The local audit makes no provider changes.
+* Last.fm and Discord: validate ownership and authorization of inherited
+  registrations, rotate any exposed reusable signing credentials with their
+  owners, and document metadata, authentication, and privacy flows.
+
+Disposable Windows verification
+--------------------------------
+Use a clean Windows 11 x64 VM with an ordinary non-admin signed-in account,
+then repeat on the Windows 10 x64 version intended for support. Keep the
+personal installation and its accounts separate. Take a VM snapshot.
+
+1. Verify dist/installer/SHA256SUMS.txt with Get-FileHash -Algorithm SHA256.
+   Fresh-install the current build. Enable the desktop task and check
+   one Start Menu entry, one Desktop link and one Installed Apps entry.
+   Confirm the links and app launch without developer tools.
+2. Restore the clean snapshot. Install the previous SleepChord build with
+   the same AppId and launch it once to create the historical extra link.
+   Seed disposable settings, downloads, Library, history and sign-in.
+   Save a separate user-created top-level test link in a different run or
+   customize the legacy link to confirm edited links are preserved.
+3. Upgrade in place while the old copy is running. Verify the original
+   install directory and one Installed Apps entry. The matching top-level
+   link should be archived unchanged, while a customized link should stay.
+   Reopen the app and compare settings, Library, history and sign-in.
+4. Close the app and uninstall through Installed Apps. Confirm both
+   installer-created links and program files disappear. Keep the user profile,
+   credentials, archive backups and unrelated files. Repeat once without
+   selecting the desktop shortcut, and verify a repeat install does not
+   reintroduce the extra link.
+5. Use a disposable image without WebView2. Verify the wizard offers the
+   official Microsoft download and can finish offline. Install Evergreen
+   using the official mechanism, then check sign-in. Run the three failing
+   Rust registry/vault/migration tests under a normal signed-in account.
+6. With network access and authorized test accounts, verify full-length
+   playback, search, Explore, queue, radio, lyrics and the restricted-track
+   fallback. Check expected download trust prompts with default OS policy.
+
+The local Windows sandbox has no disposable VM and cannot write its needed
+registry or persistent credentials. It also blocks direct provider and
+GitHub connections. A successful setup wizard launch does not establish
+installation, upgrade or uninstall compatibility.

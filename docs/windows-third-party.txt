@@ -1,0 +1,49 @@
+SleepChord Windows x64 third-party notices
+=========================================
+
+SleepChord is based on BitChord PC Continued by jackychan4891 and contributors
+(https://github.com/jackychan4891/BitChord-PC-Continued), with lineage from
+BitChord (https://github.com/kushagrasinghx/BitChord) and the ytm-rs backend
+(https://github.com/grapedjuice/ytm-rs). The program is GPL-3.0-only.
+See LICENSE. Preserve the original source headers and credits.
+
+The Windows build embeds the Rust audio stack (rodio, CPAL, Symphonia,
+rusty-opus and filmcraft-ac3), egui and its fonts, QuickJS via rquickjs,
+yt-dlp/ejs 0.8.0, the application assets and the static Microsoft WebView2
+loader. Symphonia's AAC decoder also credits Kostya Shishkov's NihAV project.
+The app-local vcruntime DLLs, when present, are Microsoft redistributable
+code shipped from Visual Studio's x64 REDIST directory. Windows, its drivers,
+and the separate WebView2 Evergreen Runtime supply system components.
+
+Microsoft distribution references
+https://learn.microsoft.com/en-us/visualstudio/releases/2022/redistribution
+https://learn.microsoft.com/en-us/cpp/windows/redistributing-visual-cpp-files
+https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/distribution
+
+Public distribution requires the exact corresponding source and build scripts
+for this version under GPLv3 section 6. Provide access to the source beside
+the binary download and explicitly identify the source location. Retain the
+MPL 2.0 source availability and notices for Symphonia and other MPL code.
+The 39 locked crates previously missing a standalone license file are
+covered by the supplements below and identified in docs/licenses/windows-notices.tsv.
+This adds license texts and source attributions. Check remaining upstream
+NOTICE files and package-specific attribution against the pinned revisions
+before publishing. Confirm rights for inherited icon variants, glyphs and
+theme preview artwork, and confirm the Microsoft terms for the WebView2 SDK
+and VC runtime. Apple SF Pro is not embedded in this build and is excluded
+from the local source candidate.
+
+The downloaded yt-dlp executable is separate from this package. Do not bundle
+its official release binary without reviewing the binary's own license and
+the terms of its bundled dependencies. Review relevant service terms and
+permissions before publishing, especially the unofficial YouTube Music
+integration, restricted-content fallback, downloads and third-party add-ons.
+Confirm that the provider registrations and application-level integration
+credentials already defined in the upstream source are authorized for this
+distribution. Keep all user credentials and development profiles separate.
+https://github.com/yt-dlp/yt-dlp#license
+https://www.youtube.com/t/terms
+https://developers.google.com/youtube/terms/developer-policies
+
+The sections below preserve the font and solver notices and record the locked
+Windows Cargo dependency graph. The inventory can include build-only crates.

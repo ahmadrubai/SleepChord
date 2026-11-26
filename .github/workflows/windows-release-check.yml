@@ -1,0 +1,73 @@
+name: Windows x64 release validation
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sleepchord-windows-release-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: github.event.repository.private && github.ref_name == github.event.repository.default_branch && vars.SLEEPCHORD_SOURCE_CLEARED == 'true'
+    environment: windows-release-validation
+    runs-on: [self-hosted, Windows, X64, sleepchord-release]
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: powershell
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Verify formatting
+        run: cargo fmt --check
+
+      - name: Check locked dependencies
+        run: cargo check --locked
+
+      - name: Run regression suite
+        run: cargo test --locked
+
+      - name: Audit locked dependencies when available
+        run: |
+          if (Get-Command cargo-audit -CommandType Application -ErrorAction SilentlyContinue) {
+            cargo audit
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } else {
+            Write-Warning 'cargo-audit unavailable. The dependency audit release gate remains open.'
+          }
+
+      - name: Build and stage Windows x64 executable
+        run: .\scripts\build-release.ps1
+
+      - name: Build installer with approved compiler
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $compiler = (Get-Command ISCC.exe -CommandType Application -ErrorAction Stop).Source
+          $output = .\scripts\build-installer.ps1 -CompilerPath $compiler
+          $output | Out-Host
+          if (($output -join "`n") -notmatch '(?m)^\s*Compiler engine version: Inno Setup 7\.1\.1\s*$') {
+            throw 'Expected Inno Setup compiler engine 7.1.1.'
+          }
+
+      - name: Verify staged payload and installer hashes
+        run: |
+          $ErrorActionPreference = 'Stop'
+          .\scripts\build-installer.ps1 -ValidateOnly
+          $dir = 'dist/installer'
+          $files = @(Get-ChildItem -LiteralPath $dir -File -Filter 'SleepChord-Setup-*-x64.exe')
+          if ($files.Count -ne 1) { throw 'Expected exactly one SleepChord x64 installer.' }
+          $manifest = @(Get-Content -LiteralPath (Join-Path $dir 'SHA256SUMS.txt'))
+          $name = [regex]::Escape($files[0].Name)
+          if ($manifest.Count -ne 1 -or $manifest[0] -cnotmatch "^([0-9a-f]{64}) +$name$") {
+            throw 'Installer manifest has an unexpected format or filename.'
+          }
+          $expected = $Matches[1]
+          $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $files[0].FullName).Hash
+          if ($hash -ne $expected) { throw 'Installer SHA-256 mismatch.' }
+          Write-Host "Verified $($files[0].Name) ($($files[0].Length) bytes)."
